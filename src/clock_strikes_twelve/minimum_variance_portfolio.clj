@@ -10,6 +10,5 @@
         c    (mmult (matrix 1 1 n) (solve variance) (matrix 1 n 1))
         d    (det (matrix [[b a] [a c]]))
         e    (mmult (/ 1 d) (mmult (- (* b (matrix 1 n 1)) a) (trans mean) (solve variance)) 
-        f    (mmult (/ 1 d) (mmult (- (* c (trans mean)) a) (matrix 1 1 n) (solve variance))]
-  ((+ e (* f return_level)))        
-)
+        f    (mmult (/ 1 d) (mmult (- (* c (trans mean)) a) (matrix 1 1 n) (solve variance))])
+  ((+ e (* f return_level))))
