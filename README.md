@@ -7,6 +7,7 @@ A Clojure port for portfolio optimization.
 have leiningen installed
 
 `lein deps`
+
 `lein test`
 
 ## License
