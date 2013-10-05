@@ -1,10 +1,13 @@
 # clock-strikes-twelve
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure port for portfolio optimization.
 
 ## Usage
 
-FIXME
+have leiningen installed
+
+`lein deps`
+`lein test`
 
 ## License
 
