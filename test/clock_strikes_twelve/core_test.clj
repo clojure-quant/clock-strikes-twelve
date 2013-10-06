@@ -23,6 +23,16 @@
 ;     Asset 1 Asset 2 Asset 3
 ; w = 0.21277 0.19149 0.59574
 
+(deftest a-test
+  (let [result (minimum-variance-portfolio [0.10 0.11 0.08] [0.20 0.10 0.15] 0.09)
+        tolerance 0.00001
+        a (double (sel result :cols 0))
+        b (double (sel result :cols 1)) 
+        c (double (sel result :cols 2))]
+    (is (= a 0.2127))
+    (is (= b 0.19149))
+    (is (= c 0.59574))))
+
 ; Financial Numerical Recipes in C++
 ; Bernt Arne Ødegaard
 ; book can be found at http://finance.bi.no/~bernt/gcc_prog/recipes/recipes.pdf
@@ -41,10 +51,6 @@
 ; x1 = 380.95, x2 = 476.19, x3 = 142.86
 ; The standard deviation is 274.30
 
-(deftest a-test
-  (let [result (minimum-variance-portfolio [0.10 0.11 0.08] [0.20 0.10 0.15] 0.09)]
-    (do (println result))
-    (is (= result [0.21277 0.19149 0.59574]))))
 
 ; Mathematics for Finance: An Introduction to Financial Engineering
 ; Capinski, Marek
