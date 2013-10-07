@@ -44,9 +44,14 @@
 ; annual dollar return on the portfolio.
 ;
 ; Solution:
-; x1 = 380.95, x2 = 476.19, x3 = 142.86
+; x1 = 0.380.95, x2 = 0.476.19, x3 = 0.142.86
 ; The standard deviation is 274.30
 
+(deftest Financial-Numerical-Recipes-test
+  (let [result (minimum-variance-portfolio [0.14 0.11 0.10] [0.20 0.08 0.18] 0.12)]
+    (is (= (first result) 0.38064516129031967))
+    (is (= (first (rest result)) 0.4774193548387109))
+    (is (= (first (rest (rest result))) 0.14193548387097055))))
 
 ; Mathematics for Finance: An Introduction to Financial Engineering
 ; Capinski, Marek
