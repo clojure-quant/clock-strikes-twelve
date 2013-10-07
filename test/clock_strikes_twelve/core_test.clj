@@ -4,6 +4,13 @@
 
 (use '(incanter core))
 
+(defn round
+  [x & {p :precision}]
+  (if p
+    (let [scale (Math/pow 10 p)]
+      (-> x (* scale) Math/round (/ scale)))
+    (Math/round x)))
+
 ; Introduction to Mathematical Programming Applications and Algorithms 2nd Ed
 ; Wayne L. Winston
 ; Duxbury Press 1995
@@ -25,9 +32,9 @@
 
 (deftest Intro-to-Math-Prog-App-Alg-test
   (let [result (minimum-variance-portfolio [0.10 0.11 0.08] [0.20 0.10 0.15] 0.09)]
-    (is (= (first result) 0.21276595744680776))
-    (is (= (first (rest result)) 0.19148936170212716))
-    (is (= (first (rest (rest result))) 0.5957446808510602))))
+    (is (= (round (first result) :precision 5) 0.21277))
+    (is (= (round (first (rest result)) :precision 5) 0.19149))
+    (is (= (round (first (rest (rest result))) :precision 5) 0.59574))))
 
 ; Financial Numerical Recipes in C++
 ; Bernt Arne Ødegaard
@@ -44,14 +51,14 @@
 ; annual dollar return on the portfolio.
 ;
 ; Solution:
-; x1 = 0.380.95, x2 = 0.476.19, x3 = 0.142.86
+; x1 = 0.38095, x2 = 0.47619, x3 = 0.14286
 ; The standard deviation is 274.30
 
 (deftest Financial-Numerical-Recipes-test
   (let [result (minimum-variance-portfolio [0.14 0.11 0.10] [0.20 0.08 0.18] 0.12)]
-    (is (= (first result) 0.38064516129031967))
-    (is (= (first (rest result)) 0.4774193548387109))
-    (is (= (first (rest (rest result))) 0.14193548387097055))))
+    (is (= (round (first result) :precision 5) 0.38065))
+    (is (= (round (first (rest result)) :precision 5) 0.47742))
+    (is (= (round (first (rest (rest result))) :precision 5) 0.14194))))
 
 ; Mathematics for Finance: An Introduction to Financial Engineering
 ; Capinski, Marek
@@ -71,53 +78,8 @@
 ; The expected return and standard deviation of this portfolio are
 ; µ = 0.146, sV = 0.162.
 
-
-
-; Portfolio Theory & Investment Management
-; Richard Dobbins & Stephan F. Witt
-; published 1983
-;
-; Two-asset Example
-; pages 32-34
-;
-; The securities of companies A and B have the following expected returns and
-; standard deviations of returns.
-;
-;            µ(%)  s(%)
-; -----------------------
-; Company A  10    15
-; Company A   8    12
-;
-; In addition the expected correlation of returns between the two stocks is 0.20.
-; The expected return and risk for a set of portfolios is calculated from equations (2.7)
-; and (2.11) as follows:
-;
-; E(R) is expected return and V(R) is variance of portfolio
-;
-; (1) 100% in A
-;     E(R)=0.10
-;     V(R)=(0.15)^2=0.0225.
-;
-; (2) 100% in B
-;     E(R)=0.08
-;     V(R)=(0.12)^2=0.0144.
-;
-; (3) 80% in A, 20% in B
-;     E(R)=0.096
-;     V(R)=0.0161.
-;
-; (4) 20% in A, 80% in B
-;     E(R)=0.084
-;     V(R)=0.0113.
-;
-; (5) 60% in A, 40% in B
-;     E(R)=0.092
-;     V(R)=0.0121.
-;
-; (6) 40% in A, 60% in B
-;     E(R)=0.088
-;     V(R)=0.0105.
-;
-; (7) 50% in A, 50% in B
-;     E(R)=0.09
-;     V(R)=0.0110.
+(deftest Introduction-to-Financial-Engineering-test
+  (let [result (minimum-variance-portfolio [0.10 0.15 0.20] [0.0784 0.0576 0.0625] 0.146)]
+    (is (= (round (first result) :precision 3) 0.349))
+    (is (= (round (first (rest result)) :precision 3) 0.383))
+    (is (= (round (first (rest (rest result))) :precision 3) 0.269))))
