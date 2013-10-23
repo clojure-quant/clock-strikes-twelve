@@ -11,6 +11,92 @@
       (-> x (* scale) Math/round (/ scale)))
     (Math/round x)))
 
+
+; Portfolio Theory & Investment Management
+; Richard Dobbins & Stephan F. Witt
+; published 1983
+;
+; Two-asset Example
+; pages 32-34
+;
+; The securities of companies A and B have the following expected returns and
+; variance of returns.
+;
+;            means   variances
+; ----------------------------
+; Company A  0.10      0.0225
+; Company A  0.80      0.0144
+;
+; In addition the expected correlation of returns between the two stocks is 0.20.
+; The expected return and risk for a set of portfolios is calculated from equations (2.7)
+; and (2.11) as follows:
+;
+; E(R) is expected return and V(R) is variance of portfolio
+;
+; (1) 
+;    Q: Find allocation of funds (weights) for securities A and B for desired return of 0.10. 
+;    A: Allocated distribution of 100% in securities A and 0% in securities B.
+;  
+; (2) 
+;    Q: Find allocation of funds for (weights) securities A and B for desired return of 0.08. 
+;    A: Allocated distribution of 0% in securities A and 100% in securities B.
+;
+; (3) 
+;    Q: Find allocation of funds for (weights) securities A and B for desired return of 0.096. 
+;    A: Allocated distribution of 80% in securities A and 20% in securities B.
+;
+; (4) 
+;    Q: Find allocation of funds for (weights) securities A and B for desired return of 0.084. 
+;    A: Allocated distribution of 20% in securities A and 80% in securities B.
+;
+; (5) 
+;    Q: Find allocation of funds for (weights) securities A and B for desired return of 0.092. 
+;    A: Allocated distribution of 60% in securities A and 40% in securities B.
+;
+; (6) 
+;    Q: Find allocation of funds for (weights) securities A and B for desired return of 0.088. 
+;    A: Allocated distribution of 40% in securities A and 60% in securities B.
+;
+; (7) 
+;    Q: Find allocation of funds for (weights) securities A and B for desired return of 0.09. 
+;    A: Allocated distribution of 50% in securities A and 50% in securities B.
+
+(deftest Portfolio-Theory-&-Investment-Management-Problem-1
+  (let [result (minimum-variance-portfolio [0.10, 0.08] [0.0225 0.0144] 0.10)]
+    (is (= (round (first result) :precision 2) 1.0))
+    (is (= (round (first (rest result)) :precision 2) 0.0))))
+
+(deftest Portfolio-Theory-&-Investment-Management-Problem-2
+  (let [result (minimum-variance-portfolio [0.10, 0.08] [0.0225 0.0144] 0.08)]
+    (is (= (round (first result) :precision 2) 0.0))
+    (is (= (round (first (rest result)) :precision 2) 1.0))))
+
+(deftest Portfolio-Theory-&-Investment-Management-Problem-3
+  (let [result (minimum-variance-portfolio [0.10, 0.08] [0.0225 0.0144] 0.096)]
+    (is (= (round (first result) :precision 2) 0.8))
+    (is (= (round (first (rest result)) :precision 2) 0.2))))
+
+(deftest Portfolio-Theory-&-Investment-Management-Problem-4
+  (let [result (minimum-variance-portfolio [0.10, 0.08] [0.0225 0.0144] 0.084)]
+    (is (= (round (first result) :precision 2) 0.2))
+    (is (= (round (first (rest result)) :precision 2) 0.8))))
+
+(deftest Portfolio-Theory-&-Investment-Management-Problem-5
+  (let [result (minimum-variance-portfolio [0.10, 0.08] [0.0225 0.0144] 0.092)]
+    (is (= (round (first result) :precision 2) 0.6))
+    (is (= (round (first (rest result)) :precision 2) 0.4))))
+
+(deftest Portfolio-Theory-&-Investment-Management-Problem-6
+  (let [result (minimum-variance-portfolio [0.10, 0.08] [0.0225 0.0144] 0.088)]
+    (is (= (round (first result) :precision 2) 0.4))
+    (is (= (round (first (rest result)) :precision 2) 0.6))))
+
+(deftest Portfolio-Theory-&-Investment-Management-Problem-7
+  (let [result (minimum-variance-portfolio [0.10, 0.08] [0.0225 0.0144] 0.09)]
+    (is (= (round (first result) :precision 2) 0.5))
+    (is (= (round (first (rest result)) :precision 2) 0.5))))
+
+
 ; Introduction to Mathematical Programming Applications and Algorithms 2nd Ed
 ; Wayne L. Winston
 ; Duxbury Press 1995
@@ -36,6 +122,7 @@
     (is (= (round (first (rest result)) :precision 5) 0.19149))
     (is (= (round (first (rest (rest result))) :precision 5) 0.59574))))
 
+
 ; Financial Numerical Recipes in C++
 ; Bernt Arne Ødegaard
 ; book can be found at http://finance.bi.no/~bernt/gcc_prog/recipes/recipes.pdf
@@ -59,6 +146,7 @@
     (is (= (round (first result) :precision 5) 0.38065))
     (is (= (round (first (rest result)) :precision 5) 0.47742))
     (is (= (round (first (rest (rest result))) :precision 5) 0.14194))))
+
 
 ; Mathematics for Finance: An Introduction to Financial Engineering
 ; Capinski, Marek
